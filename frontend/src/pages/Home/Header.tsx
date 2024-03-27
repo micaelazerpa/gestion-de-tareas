@@ -5,16 +5,6 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
-const navigation = [
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-]
-
-function classNames(...classes: (string | undefined | null | false)[]): string {
-    return classes.filter(Boolean).join(' ');
-}
-
 export default function Header() {
     return (
         <Disclosure as="nav" className="bg-teal-500">
@@ -50,10 +40,10 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr- space-x-4">
-                <Link href="/" className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}>Registro</Link>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 space-x-4">
+                <Link href="/register" className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}>Registro</Link>
                 <div className={'bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium'}>
-                    <Link href="/">Iniciar sesión</Link>             
+                    <Link href="/login">Iniciar sesión</Link>             
                 </div>
               </div>
             </div>
