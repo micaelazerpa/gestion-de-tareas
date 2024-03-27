@@ -1,7 +1,10 @@
+import Header from "./Header"
+
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <div>
+      <Header />
       <h1>Este es el home hijo de RootLayout</h1>
-    </main>
+    </div>
   );
 }
