@@ -1,6 +1,7 @@
 'use client'
 import { useForm, SubmitHandler} from "react-hook-form"
-import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup"
+import { schema } from "./utils/schema"
 
 type Inputs = {
   firstName: string
@@ -16,7 +17,8 @@ export default function Register() {
       lastName:'',
       email:'',
       password:''
-    }
+    },
+    resolver: yupResolver(schema)
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -28,6 +30,19 @@ export default function Register() {
     } = data
     console.log('Datos:------',data) 
 
+   /*  const formData = new FormData()
+
+    Object.entries({
+      firstName,
+      lastName,
+      email,
+      password
+    }).forEach(([key, value]) => {
+      formData.append(key, value)
+    })
+    formData.forEach((value, key) => {
+      console.log('Esto es del forEach',key, value)
+    })  */
   }
 
   return (
@@ -58,6 +73,7 @@ export default function Register() {
                   {...register("firstName")}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                <p className="text-sm font-medium text-red-500">{errors.firstName?.message}</p>
               </div>
             </div>
             <div>
@@ -72,7 +88,8 @@ export default function Register() {
                   required 
                   {...register("lastName")}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                />                
+                <p className="text-sm font-medium text-red-500">{errors.lastName?.message}</p>
               </div>
             </div>
             <div>
@@ -87,7 +104,8 @@ export default function Register() {
                   required
                   {...register("email")}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                />                
+                <p className="text-sm font-medium text-red-500">{errors.email?.message}</p>
               </div>
             </div>
 
@@ -111,6 +129,7 @@ export default function Register() {
                   {...register("password")}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                <p className="text-sm font-medium text-red-500">{errors.password?.message}</p>
               </div>
             </div>
 
