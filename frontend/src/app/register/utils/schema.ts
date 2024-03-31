@@ -1,18 +1,23 @@
 import * as yup from 'yup'
 
 export const schema = yup.object({
-  firstName: yup.string()
+  usuario: yup.string()
     .required('El nombre es requerido')
     .matches(/^[a-zA-Z\s]*$/, 'Ingresa solo letras')
     .min(3, 'El nombre es muy corto')
     .max(50, 'El nombre es muy largo'),
-  lastName: yup.string()
+  nombre: yup.string()
+    .required('El nombre es requerido')
+    .matches(/^[a-zA-Z\s]*$/, 'Ingresa solo letras')
+    .min(3, 'El nombre es muy corto')
+    .max(50, 'El nombre es muy largo'),
+  apellido: yup.string()
     .required('El apellido es requerido')
     .matches(/^[a-zA-Z\s]*$/, 'Ingresa solo letras')
     .min(3, 'El apellido es muy corto')
     .max(50, 'El apellido es muy largo'),
-  email: yup.string().email('Ingresa un correo valido').required('El correo es requerido'),
-  password: yup.string()
+  correo: yup.string().email('Ingresa un correo valido').required('El correo es requerido'),
+  contraseña: yup.string()
     .required('La contraseña es requerida')
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\S]*$/,
