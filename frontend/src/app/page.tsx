@@ -6,7 +6,7 @@ import TaskPage from "@/pages/Task";
 import Task from "./task/page";
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <main>
        {isLogin? <Task/> : <HomePage/>}

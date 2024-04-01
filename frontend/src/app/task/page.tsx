@@ -2,6 +2,7 @@
 import TaskPage from "@/pages/Task";
 import Link from "next/link";
 import {useState} from "react";
+import { useTask } from "./hooks/useTask";
 
 export default function Task() {
     const [menu, setMenu] = useState([true, false, false]);
@@ -12,6 +13,8 @@ export default function Task() {
         newArr[props] = !newArr[props];
         setMenu(newArr);
     }
+    const {task} = useTask()
+    console.log(task)
     return (
       <div>
       <div className="rounded-r bg-purple-800 xl:hidden flex justify-between w-full p-6 items-center ">

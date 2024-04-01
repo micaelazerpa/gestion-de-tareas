@@ -2,10 +2,10 @@ import * as yup from 'yup'
 
 export const schema = yup.object({
   usuario: yup.string()
-    .required('El nombre es requerido')
+    .required('El usuario es requerido')
     .matches(/^[a-zA-Z\s]*$/, 'Ingresa solo letras')
-    .min(3, 'El nombre es muy corto')
-    .max(50, 'El nombre es muy largo'),
+    .min(3, 'El usuario es muy corto')
+    .max(50, 'El usuario es muy largo'),
   nombre: yup.string()
     .required('El nombre es requerido')
     .matches(/^[a-zA-Z\s]*$/, 'Ingresa solo letras')
