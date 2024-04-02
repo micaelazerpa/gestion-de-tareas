@@ -7,10 +7,11 @@ export function useTask() {
 
   const getApplicants = async () => {
     setIsLoading(true);
+    console.log('Esta en el hook de tareas')
     try {
-      const { data } = await getTasks();
-        console.log('Tareas regitradas', data)
-      setTask(data);
+      const  data  = await getTasks();
+        console.log('Tareas en el hook', data.tareas)
+      setTask(data.tareas);
     } catch (error) {
       console.error("Error: ", error);
       throw error;
@@ -23,7 +24,7 @@ export function useTask() {
     if (task.length === 0) {
       getApplicants();
     }
-  },[task.length]);
+  },[]);
 
   return {
     task,

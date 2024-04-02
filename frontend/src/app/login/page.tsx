@@ -5,6 +5,8 @@ import { Login } from "@/models/user.model"
 import Link from "next/link"
 import { useLogin } from "./hooks/useLogin"
 import { schema } from "./utils/schema"
+import Task from "../task/page"
+import { useRouter } from 'next/navigation'
 
 export default function Login() {
   const {register, handleSubmit, formState: { errors }} = useForm<Login>({
@@ -14,11 +16,23 @@ export default function Login() {
     },
     resolver: yupResolver(schema)
   });
-  const { searchUser, isLoading } = useLogin()
+  const { searchUser, isLoading, token} = useLogin()
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<Login> = (data) => {
     console.log('Datos:------',data) 
     searchUser(data)
+    try {
+      const decodedToken = jwt.verify(token); // Reemplaza 'tu_secreto_secreto' con tu clave secreta
+
+      // La información del usuario estará en el payload del token decodificado
+      const user = decodedToken; // Puedes modificar esto según la estructura de tu token
+
+      router.push('/task')
+    } catch (error) {
+        console.error('Error al decodificar el token:', error);
+        throw error;
+    }
   }
 
   return (

@@ -1,14 +1,17 @@
 'use client'
-import { getUser } from '@/services/user.services'
+import { postLogin } from '@/services/user.services'
 import { useState } from 'react'
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const [token, setToken] = useState<string | null>(null)
+
   const searchUser = async (body: any) => {
     setIsLoading(true)
     try {
-      await getUser(body)
-      console.log('inicio de sesión')
+      const authToken = await postLogin(body);
+      setToken(authToken);
+      console.log('Inicio de sesión exitoso');
     } catch (error) {
       console.error('Error: ', error)
       throw error
@@ -19,6 +22,7 @@ export const useLogin = () => {
 
   return {
     isLoading,
+    token,
     searchUser
   }
 }
