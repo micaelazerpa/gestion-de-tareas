@@ -20,18 +20,11 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<Login> = (data) => {
-    console.log('Datos:------',data) 
-    searchUser(data)
-    try {
-      const decodedToken = jwt.verify(token); // Reemplaza 'tu_secreto_secreto' con tu clave secreta
-
-      // La información del usuario estará en el payload del token decodificado
-      const user = decodedToken; // Puedes modificar esto según la estructura de tu token
-
-      router.push('/task')
-    } catch (error) {
-        console.error('Error al decodificar el token:', error);
-        throw error;
+    searchUser(data)    
+  }
+  const onChange = ()=>{
+    if (token){
+        router.push(`/task?token=${token}`)
     }
   }
 
@@ -96,6 +89,7 @@ export default function Login() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-purple-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 disabled={isLoading}
+                onClick={onChange}
               >
                 {isLoading ? ( <>Enviando...</>): <Link href="/login">Iniciar sesión</Link> }
               </button>

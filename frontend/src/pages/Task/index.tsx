@@ -23,11 +23,16 @@ export default function TaskPage(params: any) {
               />
             </div>
             <div>
-              <a href="#" className="font-semibold text-gray-900">
+              <h2 className="font-semibold text-gray-900">
                 {task.nombre}
                 <span className="absolute inset-0" />
-              </a>
+              </h2>
               <p className="mt-1 text-gray-600">{task.descripcion}</p>
+              <h4 className="font-semibold text-gray-900">
+                Estado de la tarea
+                <span className="absolute inset-0" />
+              </h4>
+              <p className="mt-1 text-gray-600">{task.estado}</p>
             </div>
           </div>
         </div>

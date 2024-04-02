@@ -1,21 +1,46 @@
 'use client'
 import TaskPage from "@/pages/Task";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useTask } from "./hooks/useTask";
 import { PlusIcon, PencilSquareIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import { User } from "@/models/user.model";
 
 export default function Task() {
     const [menu, setMenu] = useState([true, false, false]);
     const [show, setShow] = useState(true);
+    const [user, setUser] = useState<User | null>(null);
 
     const setMenuValue = (props: any) => {
         let newArr = [...menu];
         newArr[props] = !newArr[props];
         setMenu(newArr);
     }
-    const {task} = useTask()
-    //console.log('Tareas en la página',task)
+    const searchParams = useSearchParams()
+    const token = searchParams?.get('token') 
+    const router = useRouter()
+    const {task} = useTask(token)
+    console.log('Tareas en la página',task)
+
+    useEffect(()=>{ 
+        if (token){
+          try {
+            console.log('Token:------',token) 
+            const decodedToken =  jwtDecode(token) as User; 
+              console.log('Datos:------', decodedToken);
+              setUser(decodedToken);
+          } catch (error) {
+              console.error('Error al decodificar el token:', error);
+              throw error;
+          }
+        }
+    }, [token])
+    const onChange = ()=>{
+        router.push('/task-form')
+       // router.push('/[taskId]', `/${id}`)
+    }
     return (
       <div>
       <div className="rounded-r bg-purple-800 xl:hidden flex justify-between w-full p-6 items-center ">
@@ -44,7 +69,7 @@ export default function Task() {
                           <img className="rounded-full" src="https://i.ibb.co/L1LQtBm/Ellipse-1.png" alt="avatar" />
                       </div>
                       <div className="flex justify-start flex-col items-start">
-                          <p className="cursor-pointer text-sm leading-5 text-white">Alexis Enache</p>
+                          <p className="cursor-pointer text-sm leading-5 text-white"> {user?.nombre}</p>
                           <p className="cursor-pointer text-xs leading-3 text-gray-300">alexis81@gmail.com</p>
                       </div>
                   </div>
@@ -70,9 +95,9 @@ export default function Task() {
           </div>
           
           <div className="flex flex-col justify-between items-center h-full pb-6   px-6  w-full  space-y-32 ">
-              <Link href="/task-form" className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase ">
+              <button onClick={onChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase ">
                  <PlusIcon  className="h-6 w-6 flex-none text-white mr-1"  aria-hidden="true"/>AGREGRAR TAREA                
-              </Link>
+              </button>
           </div>
       </div>
       <div className="col-span-3">
