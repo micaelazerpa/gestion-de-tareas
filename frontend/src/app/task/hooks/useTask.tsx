@@ -10,7 +10,6 @@ export function useTask(userId: any) {
     if (userId) {
       try {
         const data = await getTaskUserId(userId);
-        console.log("Tareas en el hook", data.tareas);
         setTask(data.tareas);
       } catch (error) {
         console.error("Error: ", error);

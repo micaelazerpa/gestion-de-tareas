@@ -20,13 +20,14 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<Login> = (data) => {
-    searchUser(data)    
-  }
-  const onChange = ()=>{
+    searchUser(data)  
     if (token){
-        router.push(`/task?token=${token}`)
+      //router.push(`/task?token=${token}`)
+      router.push('/task')
+      localStorage.setItem('token',token)
+      localStorage.setItem('isLogin', 'true')
     }
-  }
+  }  
 
   return (
       <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -89,7 +90,6 @@ export default function Login() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-purple-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 disabled={isLoading}
-                onClick={onChange}
               >
                 {isLoading ? ( <>Enviando...</>): <Link href="/login">Iniciar sesión</Link> }
               </button>

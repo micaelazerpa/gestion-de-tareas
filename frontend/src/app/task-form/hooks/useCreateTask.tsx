@@ -2,14 +2,12 @@
 import { postTask } from '@/services/task.services'
 import { useState } from 'react'
 
-export const useRegisterTask = () => {
+export const useCreateTask = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const createTask = async (body: any) => {
+  const createTask = async (body: any, token: any) => {
     setIsLoading(true)
     try {
-      console.log('Datos hook',body)
-      await postTask(body)
-      console.log('usuario registrado')
+      await postTask(body, token)
     } catch (error) {
       console.error('Error: ', error)
       throw error

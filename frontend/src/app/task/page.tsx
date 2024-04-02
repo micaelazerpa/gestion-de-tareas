@@ -18,18 +18,15 @@ export default function Task() {
         newArr[props] = !newArr[props];
         setMenu(newArr);
     }
-    const searchParams = useSearchParams()
-    const token = searchParams?.get('token') 
+    
+    const token = localStorage.getItem('token');
     const router = useRouter()
     const {task} = useTask(token)
-    console.log('Tareas en la página',task)
 
     useEffect(()=>{ 
         if (token){
           try {
-            console.log('Token:------',token) 
-            const decodedToken =  jwtDecode(token) as User; 
-              console.log('Datos:------', decodedToken);
+              const decodedToken =  jwtDecode(token) as User; 
               setUser(decodedToken);
           } catch (error) {
               console.error('Error al decodificar el token:', error);
@@ -39,6 +36,7 @@ export default function Task() {
     }, [token])
     const onChange = ()=>{
         router.push('/task-form')
+        localStorage.setItem('user',JSON.stringify(user))
        // router.push('/[taskId]', `/${id}`)
     }
     return (

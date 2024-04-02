@@ -26,10 +26,11 @@ export const getTaskUserId = async (token: any)=>{
     }
 }
 
-export const postTask= async (data: any)=>{
-    console.log('Datos service:', data)
+export const postTask= async (data:any, token: any)=>{
+    console.log('Datos service:', data, token)
     try{
-        const task: any = await axios.post(API_URL.POST_TASK, {data})
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const task: any = await axios.post(API_URL.POST_TASK, data)
         console.log('Respuesta del servidor:', task.data);
         return task.data
     } catch(error){

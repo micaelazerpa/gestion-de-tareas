@@ -8,6 +8,4 @@ export enum EstadoTarea {
 export interface Tarea {
     nombre: string;
     descripcion: string;
-    autorId: string
-    estado: EstadoTarea;
 }

@@ -6,31 +6,30 @@ import {
   PencilIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useRegisterTask } from "./hooks/useTaskForm";
-import { EstadoTarea, Tarea } from "@/models/task.model";
+import { useCreateTask } from "./hooks/useCreateTask";
+import { Tarea } from "@/models/task.model";
+import { yupResolver } from "@hookform/resolvers/yup"
+import { schema } from "./utils/schema"
 
 export default function TaskForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Tarea>({
+  const { register, handleSubmit, formState: { errors } } = useForm<Tarea>({
     defaultValues: {
       nombre: "",
       descripcion: "",
-      autorId: "",
-      estado: EstadoTarea.PENDIENTE,
     },
+    resolver: yupResolver(schema)
   });
-  const { createTask, isLoading } = useRegisterTask();
+  const token = localStorage.getItem('token');
+  const { createTask, isLoading } = useCreateTask();
+
   const onSubmit: SubmitHandler<Tarea> = (data) => {
-    const { nombre: nombre, descripcion: descripcion, autorId: autorId } = data;
     console.log("Datos de tarea:------", data);
-    createTask(data);
+    createTask(data, token);
   };
+
   return (
     <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8">
-      <div className="flex justify-center flex-1 flex-col max-w-lg overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+      <div className="flex justify-center flex-col flex-1 max-w-md overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Tarea
@@ -82,44 +81,17 @@ export default function TaskForm() {
                   {...register("descripcion")}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                <p className="text-sm font-medium text-red-500">
-                  {errors.descripcion?.message}
-                </p>
                 <p className="mt-3 text-sm leading-6 text-gray-600">
                   Escriba una descripción de su tarea.
                 </p>
+                <p className="text-sm font-medium text-red-500">
+                  {errors.descripcion?.message}
+                </p>
               </div>
             </div>
-            <div className="mt-10 space-y-10">
-              <fieldset>
-                <legend className="block text-sm font-medium leading-6 text-gray-900">
-                  Estado de la tarea
-                </legend>
-                <div className="mt-6 space-y-6">
-                  {Object.values(EstadoTarea).map((estado) => (
-                    <div key={estado} className="flex items-center gap-x-3">
-                      <input
-                        id={`estado-${estado}`}
-                        type="radio"
-                        value={estado}
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        {...register("estado")} // Registro del estado en el formulario
-                      />
-                      <label
-                        htmlFor={`estado-${estado}`}
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        {estado}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
-
             <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
               <Link
-                href="/"
+                href="/task"
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
               >
                 {/* <PencilIcon
@@ -133,7 +105,7 @@ export default function TaskForm() {
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
                 disabled={isLoading}
               >
-                {isLoading ? <>Enviando...</> : <Link href="/">Guardar</Link>}
+                {isLoading ? <>Enviando...</> : <Link href="/task">Guardar</Link>}
               </button>
             </div>
           </form>
