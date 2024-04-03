@@ -17,8 +17,8 @@ export default function TaskId({ params }: any) {
         }
     });
   const token = localStorage.getItem('token');
-  const { updateTask, isLoading } = useUpdateTask();
-  
+  const { updateTask} = useUpdateTask();
+
   const idTask = params;
   const router = useRouter()
   /* const data = router.query;  */
@@ -141,9 +141,9 @@ export default function TaskId({ params }: any) {
               <button
                 type="submit"
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
-                disabled={isLoading}
+                //disabled={isLoading}
               >
-                {isLoading ? <>Enviando...</> : 'Guardar'}
+                Guardar
               </button>
             </div>
           </form>
