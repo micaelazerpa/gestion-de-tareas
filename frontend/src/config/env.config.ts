@@ -6,6 +6,7 @@ export const API_URL={
     POST_USER_LOGIN: URL_SERVER + "/autentificacion",
     POST_USER: URL_SERVER + "/usuario/registrar",
     GET_TASK: URL_SERVER + "/tarea",
-    GET_TASK_BYID: URL_SERVER + "/tarea/misTareas",
+    GET_TASK_BYUSER: URL_SERVER + "/tarea/misTareas",
+    PUT_TASK: URL_SERVER + "/tarea/actualizar",
     POST_TASK: URL_SERVER + "/tarea/registrar"
 }

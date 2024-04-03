@@ -1,32 +1,41 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  ClipboardDocumentListIcon,
-  ChevronRightIcon,
-  PencilIcon,
-} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { EstadoTarea, Tarea } from "@/models/task.model";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useUpdateTask } from "../hooks/useUpdateTask";
+import { useEffect, useState } from "react";
 
-export default function TaskId({ params }: { params: { task: string } }) {
-  const { register, handleSubmit, formState: { errors } } = useForm<Tarea>({
-    defaultValues: {
-      nombre: "",
-      descripcion: "",
-    },
-  });
+export default function TaskId({ params }: any) {
+    const taskLocal= localStorage.getItem('task');
+    const [task, setTask ] = useState<Tarea | null>(null);
+    const { register, handleSubmit, formState: { errors }, reset} = useForm<Tarea>({
+        defaultValues:{
+            nombre:task?.nombre,
+            descripcion:task?.descripcion,
+            estado:task?.estado
+        }
+    });
   const token = localStorage.getItem('token');
-  //const { createTask, isLoading } = useCreateTask(token);
-
-  const router = useRouter();
-  const data = router.query;
-
-  console.log(data); 
+  const { updateTask, isLoading } = useUpdateTask();
+  
+  const idTask = params;
+  const router = useRouter()
+  /* const data = router.query;  */
+  useEffect(() => {
+    setTimeout(() => {
+        if (taskLocal){
+            const taskJson=JSON.parse(taskLocal)
+            setTask(taskJson)
+            reset(taskJson)
+        }
+    }, 1000);
+  }, []);
   
   const onSubmit: SubmitHandler<Tarea> = (data) => {
-    console.log("Datos de tarea:------", data);
-    //createTask({ nombre: nombre, descripcion: descripcion, autorId: userData?.id, estado: estado } );
+    const {nombre, descripcion, estado}=data
+    updateTask(idTask, {nombre, descripcion, estado}, token);
+    router.push('/task')
   };
 
   return (
@@ -56,6 +65,7 @@ export default function TaskId({ params }: { params: { task: string } }) {
                   id="nombre"
                   type="text"
                   autoComplete="nombre"
+                  
                   required
                   {...register("nombre")}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -104,7 +114,8 @@ export default function TaskId({ params }: { params: { task: string } }) {
                         type="radio"
                         value={estado}
                         className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        {...register("estado")} // Registro del estado en el formulario
+                        {...register("estado")}
+                        //checked={task?.estado === estado} 
                       />
                       <label
                         htmlFor={`estado-${estado}`}
@@ -134,7 +145,7 @@ export default function TaskId({ params }: { params: { task: string } }) {
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
                 disabled={isLoading}
               >
-                {isLoading ? <>Enviando...</> : <Link href="/task-form">Guardar</Link>}
+                {isLoading ? <>Enviando...</> : 'Guardar'}
               </button>
             </div>
           </form>

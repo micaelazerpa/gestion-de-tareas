@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { getTaskUserId, getTasks } from "@/services/task.services";
 
-export function useTask(token: any) {
+export function useTaskById(taskId: any) {
   const [task, setTask] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const taskByUser = async () => {
     setIsLoading(true);
-    if (token) {
+    if (taskId) {
       try {
-        const data = await getTaskUserId(token);
+        const data = await getTaskId(taskId);
         setTask(data.tareas);
       } catch (error) {
         console.error("Error: ", error);
@@ -24,7 +24,7 @@ export function useTask(token: any) {
     if (task.length === 0) {
       taskByUser();
     }
-  }, [token]);
+  }, [taskId]);
 
   return {
     task,

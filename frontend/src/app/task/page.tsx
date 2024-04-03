@@ -36,7 +36,6 @@ export default function Task() {
     }, [token])
     const onChange = ()=>{
         router.push('/task-form')
-        localStorage.setItem('user',JSON.stringify(user))
        // router.push('/[taskId]', `/${id}`)
     }
     return (

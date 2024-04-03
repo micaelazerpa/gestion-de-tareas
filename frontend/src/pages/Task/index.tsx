@@ -1,13 +1,34 @@
+'use client'
 import {
   ClipboardDocumentListIcon,
   ChevronRightIcon,
   PencilIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 export default function TaskPage(params: any) {
-  //console.log("parametros en tarjet", params);
   const { task } = params;
+  
+  const router = useRouter();
+
+  const handleClick = ()=>{
+    /* const { id } = router.query;
+    const findTaskById = ((id: any) => {
+      return task.find((item: any) => item._id === id);
+    });
+    const tareaAGuardar = findTaskById(id);
+
+    if (tareaAGuardar) {
+      const tareaJSON = JSON.stringify(tareaAGuardar);
+      localStorage.setItem("task", tareaJSON);
+    } else {
+      console.error('No se encontró ninguna tarea');
+    } */
+    localStorage.setItem("task", JSON.stringify(task));
+    console.log("parametros en tarjet", task);
+    router.push(`/task/${task._id}`)
+  }
   return (
     <div className="mt-5 flex max-w-max px-4">
       <div className="max-w-sm overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
@@ -47,8 +68,11 @@ export default function TaskPage(params: any) {
             />
             Ver
           </Link>
-          <Link
-            href="/"
+          <button
+            //href={`/[taskId]/${task.id}`}
+            //href="/task/[id]" as={`/task/${task._id}`}
+            //href={{ pathname: '/[taskId]', query: task }}
+            onClick={handleClick}
             className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
           >
             <PencilIcon
@@ -56,7 +80,7 @@ export default function TaskPage(params: any) {
               aria-hidden="true"
             />
             Editar
-          </Link>
+          </button>
         </div>
       </div>
     </div>

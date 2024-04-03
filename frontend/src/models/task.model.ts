@@ -8,4 +8,5 @@ export enum EstadoTarea {
 export interface Tarea {
     nombre: string;
     descripcion: string;
+    estado: string;
 }
