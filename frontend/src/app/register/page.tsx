@@ -30,11 +30,13 @@ export default function Register() {
   return (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* <img
-            className="mx-auto h-10 w-auto"
-            src="https://cdn-icons-png.flaticon.com/256/12249/12249758.pnghttps://cdn-icons-png.flaticon.com/256/0/581.pnghttps://cdn-icons-png.flaticon.com/256/30/30766.png"
-            alt="Logo"
-          /> */}
+          <a href="/">
+            <img
+              className="mx-auto h-10 w-auto"
+              src="https://cdn-icons-png.flaticon.com/256/11017/11017025.png"
+              alt="Logo"
+            />
+          </a>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Registro
           </h2>

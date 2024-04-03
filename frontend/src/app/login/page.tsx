@@ -38,11 +38,13 @@ export default function Login() {
   return (
       <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* <img
-            className="mx-auto h-10 w-auto"
-            src="https://cdn-icons-png.flaticon.com/256/12249/12249758.pnghttps://cdn-icons-png.flaticon.com/256/0/581.pnghttps://cdn-icons-png.flaticon.com/256/30/30766.png"
-            alt="Logo"
-          /> */}
+        <a href="/">
+            <img
+              className="mx-auto h-10 w-auto"
+              src="https://cdn-icons-png.flaticon.com/256/11017/11017025.png"
+              alt="Logo"
+            />
+          </a>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Iniciar sesión
           </h2>
@@ -90,8 +92,6 @@ export default function Login() {
                 <p className="text-sm font-medium text-red-500">{errors.contraseña?.message}</p>
               </div>
             </div>
-
-            <div>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-purple-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -99,7 +99,7 @@ export default function Login() {
               >
                 {isLoading ? ( <>Enviando...</>): <Link href="/login">Iniciar sesión</Link> }
               </button>
-            </div>
+            
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">

@@ -17,8 +17,8 @@ export default function Header() {
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="h-10 w-auto"
+                src="https://cdn-icons-png.flaticon.com/256/11017/11017025.png"
                 alt=""
               />
             </a>
