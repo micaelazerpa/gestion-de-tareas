@@ -3,7 +3,7 @@ import { putTask } from '@/services/task.services'
 import { useState } from 'react'
 
 export const useUpdateTask = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const updateTask = async (id: any, body: any, token: any) => {
     setIsLoading(true)
     try {

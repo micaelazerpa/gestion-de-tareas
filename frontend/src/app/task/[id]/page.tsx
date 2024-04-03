@@ -23,13 +23,11 @@ export default function TaskId({ params }: any) {
   const router = useRouter()
   /* const data = router.query;  */
   useEffect(() => {
-    setTimeout(() => {
-        if (taskLocal){
-            const taskJson=JSON.parse(taskLocal)
-            setTask(taskJson)
-            reset(taskJson)
-        }
-    }, 1000);
+    if (taskLocal){
+      const taskJson=JSON.parse(taskLocal)
+      setTask(taskJson)
+      reset(taskJson)
+    }
   }, []);
   
   const onSubmit: SubmitHandler<Tarea> = (data) => {
