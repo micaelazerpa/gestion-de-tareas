@@ -3,6 +3,7 @@ import {
   ClipboardDocumentListIcon,
   ChevronRightIcon,
   PencilIcon,
+  DocumentTextIcon
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
@@ -38,7 +39,7 @@ export default function TaskPage(params: any) {
             className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
           >
             <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-              <ClipboardDocumentListIcon
+              <DocumentTextIcon
                 className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
                 aria-hidden="true"
               />
@@ -50,7 +51,7 @@ export default function TaskPage(params: any) {
               </h2>
               <p className="mt-1 text-gray-600">{task.descripcion}</p>
               <h4 className="font-semibold text-gray-900">
-                Estado de la tarea
+                Estado
                 <span className="absolute inset-0" />
               </h4>
               <p className="mt-1 text-gray-600">{task.estado}</p>

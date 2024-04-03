@@ -1,18 +1,14 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  ClipboardDocumentListIcon,
-  ChevronRightIcon,
-  PencilIcon,
-} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useCreateTask } from "./hooks/useCreateTask";
-import { Tarea } from "@/models/task.model";
+import { Tarea, TareaForm } from "@/models/task.model";
 import { yupResolver } from "@hookform/resolvers/yup"
 import { schema } from "./utils/schema"
+import { useRouter} from 'next/navigation'
 
 export default function TaskForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<Tarea>({
+  const { register, handleSubmit, formState: { errors } } = useForm<TareaForm>({
     defaultValues: {
       nombre: "",
       descripcion: "",
@@ -22,9 +18,12 @@ export default function TaskForm() {
   const token = localStorage.getItem('token');
   const { createTask, isLoading } = useCreateTask();
 
+  const router = useRouter()
   const onSubmit: SubmitHandler<Tarea> = (data) => {
+    console.log("se tocó------")
     console.log("Datos de tarea:------", data);
     createTask(data, token);
+    router.push('/task')
   };
 
   return (
@@ -105,7 +104,7 @@ export default function TaskForm() {
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
                 disabled={isLoading}
               >
-                {isLoading ? <>Enviando...</> : <Link href="/task">Guardar</Link>}
+                {isLoading ? <>Enviando...</> : 'Guardar'}
               </button>
             </div>
           </form>

@@ -7,9 +7,7 @@ export const useRegister = () => {
   const createUser = async (body: any) => {
     setIsLoading(true)
     try {
-      console.log('Datos hook',body)
       await postUser(body)
-      console.log('usuario registrado')
     } catch (error) {
       console.error('Error: ', error)
       throw error

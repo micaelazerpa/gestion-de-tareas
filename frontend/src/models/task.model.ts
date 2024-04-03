@@ -10,3 +10,8 @@ export interface Tarea {
     descripcion: string;
     estado: string;
 }
+
+export interface TareaForm {
+    nombre: string;
+    descripcion: string;
+}

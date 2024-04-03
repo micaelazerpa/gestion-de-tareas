@@ -11,7 +11,6 @@ export const useLogin = () => {
     try {
       const authToken = await postLogin(body);
       setToken(authToken);
-      console.log('Inicio de sesión exitoso');
     } catch (error) {
       console.error('Error: ', error)
       throw error

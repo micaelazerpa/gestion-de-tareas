@@ -5,8 +5,8 @@ import { Login } from "@/models/user.model"
 import Link from "next/link"
 import { useLogin } from "./hooks/useLogin"
 import { schema } from "./utils/schema"
-import Task from "../task/page"
 import { useRouter } from 'next/navigation'
+import { useEffect } from "react"
 
 export default function Login() {
   const {register, handleSubmit, formState: { errors }} = useForm<Login>({
@@ -21,13 +21,19 @@ export default function Login() {
 
   const onSubmit: SubmitHandler<Login> = (data) => {
     searchUser(data)  
+  }  
+
+  useEffect(()=>{ 
     if (token){
       //router.push(`/task?token=${token}`)
       router.push('/task')
       localStorage.setItem('token',token)
       localStorage.setItem('isLogin', 'true')
+    }else{
+      console.log('el usuario no existe')
     }
-  }  
+  }, [searchUser])
+   
 
   return (
       <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">

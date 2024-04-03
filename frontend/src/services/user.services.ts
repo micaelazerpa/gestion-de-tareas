@@ -5,7 +5,7 @@ export const postUser= async (data: any)=>{
     //const {body} = req
     console.log('Datos service:', data)
     try{
-        const user: any = await axios.post(API_URL.POST_USER, {data})
+        const user: any = await axios.post(API_URL.POST_USER, data)
         console.log('Respuesta del servidor:', user.data);
         return user.data
     } catch(error){

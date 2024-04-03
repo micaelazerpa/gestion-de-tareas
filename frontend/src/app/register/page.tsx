@@ -5,6 +5,7 @@ import { schema } from "./utils/schema"
 import { Usuario } from "@/models/user.model"
 import { useRegister } from "./hooks/useRegister"
 import Link from "next/link"
+import { useRouter} from 'next/navigation'
 
 export default function Register() {
   const {register, handleSubmit, formState: { errors }} = useForm<Usuario>({
@@ -18,17 +19,12 @@ export default function Register() {
     resolver: yupResolver(schema)
   });
   const { createUser, isLoading } = useRegister()
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<Usuario> = (data) => {
-    const {
-      usuario,
-      nombre,
-      apellido,
-      correo,
-      contraseña
-    } = data
     console.log('Datos:------',data) 
     createUser(data)
+    router.push('/login')
   }
 
   return (

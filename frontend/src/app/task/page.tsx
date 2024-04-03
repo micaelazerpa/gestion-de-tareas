@@ -3,9 +3,9 @@ import TaskPage from "@/pages/Task";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import { useTask } from "./hooks/useTask";
-import { PlusIcon, PencilSquareIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import { PlusIcon, PencilSquareIcon, Bars3Icon, XMarkIcon, ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
+import { useRouter} from 'next/navigation'
+import { jwtDecode } from "jwt-decode";
 import { User } from "@/models/user.model";
 
 export default function Task() {
@@ -34,9 +34,13 @@ export default function Task() {
           }
         }
     }, [token])
-    const onChange = ()=>{
+    const handleChange = ()=>{
         router.push('/task-form')
        // router.push('/[taskId]', `/${id}`)
+    }
+    const handleLogin = ()=>{
+        localStorage.setItem('isLogin', 'false')
+        router.push('/')
     }
     return (
       <div>
@@ -92,8 +96,11 @@ export default function Task() {
           </div>
           
           <div className="flex flex-col justify-between items-center h-full pb-6   px-6  w-full  space-y-32 ">
-              <button onClick={onChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase ">
+              <button onClick={handleChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase ">
                  <PlusIcon  className="h-6 w-6 flex-none text-white mr-1"  aria-hidden="true"/>AGREGRAR TAREA                
+              </button>
+              <button onClick={handleLogin} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5">
+                 <ArrowLeftStartOnRectangleIcon className="h-6 w-6 flex-none text-white mr-1"  aria-hidden="true"/>Cerrar sesión           
               </button>
           </div>
       </div>
