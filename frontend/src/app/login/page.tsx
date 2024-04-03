@@ -1,25 +1,21 @@
 'use client'
-import { useForm, SubmitHandler} from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { Login } from "@/models/user.model"
+import { useForm } from "react-hook-form"
 import Link from "next/link"
 import { useLogin } from "./hooks/useLogin"
-import { schema } from "./utils/schema"
 import { useRouter } from 'next/navigation'
 import { useEffect } from "react"
 
 export default function Login() {
-  const {register, handleSubmit, formState: { errors }} = useForm<Login>({
+  const {register, handleSubmit, formState: { errors }} = useForm({
     defaultValues:{
       usuario:'',
       contraseña:''
-    },
-    resolver: yupResolver(schema)
+    }
   });
   const { searchUser, isLoading, token} = useLogin()
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<Login> = (data) => {
+  const onSubmit= (data: any) => {
     searchUser(data)  
   }  
 

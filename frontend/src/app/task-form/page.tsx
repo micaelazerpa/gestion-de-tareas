@@ -19,7 +19,7 @@ export default function TaskForm() {
   const { createTask, isLoading } = useCreateTask();
 
   const router = useRouter()
-  const onSubmit: SubmitHandler<Tarea> = (data) => {
+  const onSubmit = (data: any) => {
     console.log("se tocó------")
     console.log("Datos de tarea:------", data);
     createTask(data, token);

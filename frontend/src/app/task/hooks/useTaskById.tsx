@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getTaskUserId, getTasks } from "@/services/task.services";
+import { getTaskId} from "@/services/task.services";
 
-export function useTaskById(taskId: any) {
+export function useTaskById(taskId: any, token: any) {
   const [task, setTask] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -9,8 +9,7 @@ export function useTaskById(taskId: any) {
     setIsLoading(true);
     if (taskId) {
       try {
-        const data = await getTaskId(taskId);
-        setTask(data.tareas);
+        const data = await getTaskId(taskId, token);
       } catch (error) {
         console.error("Error: ", error);
         throw error;

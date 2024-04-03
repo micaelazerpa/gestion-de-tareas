@@ -24,6 +24,18 @@ export const getTaskUserId = async (token: any)=>{
         throw error;
     }
 }
+export const getTaskId = async (req: any, token: any)=>{
+    //const {userId}=req;
+    try{
+        const {id}=req
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const task: any = await axios.get(`${API_URL.GET_TASK_BYID}/${id}`)
+        console.log('Respuesta del servidor:', task.data);
+    } catch(error){
+        console.error('Error al enviar la solicitud:', error);
+        throw error;
+    }
+}
 export const putTask = async (req:any, data:any, token: any)=>{
     try{
         const {id}=req
