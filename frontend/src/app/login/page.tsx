@@ -4,6 +4,8 @@ import Link from "next/link"
 import { useLogin } from "./hooks/useLogin"
 import { useRouter } from 'next/navigation'
 import { useEffect } from "react"
+import { useAuth} from "../hooks/useAuth"
+import { useToken } from "../hooks/useToken"
 
 export default function Login() {
   const {register, handleSubmit, formState: { errors }} = useForm({
@@ -12,6 +14,8 @@ export default function Login() {
       contraseña:''
     }
   });
+  const {updateAuth } = useAuth()
+  const {setToken}=useToken()
   const { searchUser, isLoading, token} = useLogin()
   const router = useRouter()
 
@@ -22,13 +26,13 @@ export default function Login() {
   useEffect(()=>{ 
     if (token){
       //router.push(`/task?token=${token}`)
+      setToken(token)
+      updateAuth()
       router.push('/task')
-      localStorage.setItem('token',token)
-      localStorage.setItem('isLogin', 'true')
     }else{
       console.log('el usuario no existe')
     }
-  }, [searchUser])
+  }, [token])
    
 
   return (

@@ -1,20 +1,18 @@
 'use client'
 import { useEffect, useState } from "react";
 import HomePage from "@/pages/Home";
-import Image from "next/image";
-import TaskPage from "@/pages/Task";
 import Task from "./task/page";
+import { useAuth } from "./hooks/useAuth";
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const storedIsLogin = localStorage.getItem('isLogin');
+  const isLogin = useAuth((state)=>state.login)/* 
   useEffect(()=>{
-    if (storedIsLogin === 'true') {
-      setIsLogin(true);
+    if (isLogin === true) {
+      isLogin(true)
     }else{
-      setIsLogin(false)
+      isLogin(false)
     }
-  },[storedIsLogin])
+  },[isLogin]) */
   return (
     <main>
        {isLogin? <Task/> : <HomePage/>}

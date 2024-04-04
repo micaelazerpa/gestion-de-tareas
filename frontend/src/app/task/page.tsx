@@ -7,19 +7,22 @@ import { PlusIcon, PencilSquareIcon, Bars3Icon, XMarkIcon, ArrowLeftStartOnRecta
 import { useRouter} from 'next/navigation'
 import { jwtDecode } from "jwt-decode";
 import { User } from "@/models/user.model";
+import { useAuth} from "../hooks/useAuth";
+import { useToken } from "../hooks/useToken";
 
 export default function Task() {
     const [menu, setMenu] = useState([true, false, false]);
     const [show, setShow] = useState(true);
     const [user, setUser] = useState<User | null>(null);
-
+    const {updateAuth}=useAuth()
     const setMenuValue = (props: any) => {
         let newArr = [...menu];
         newArr[props] = !newArr[props];
         setMenu(newArr);
     }
     
-    const token = localStorage.getItem('token');
+    const token = useToken(state=>state.token);
+    console.log('token llegado a task', token)
     const router = useRouter()
     const {task} = useTask(token)
 
@@ -39,7 +42,7 @@ export default function Task() {
        // router.push('/[taskId]', `/${id}`)
     }
     const handleLogin = ()=>{
-        localStorage.setItem('isLogin', 'false')
+        updateAuth()
         router.push('/')
     }
     return (

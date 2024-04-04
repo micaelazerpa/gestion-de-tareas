@@ -3,7 +3,7 @@ import { postLogin } from '@/services/user.services'
 import { useState } from 'react'
 
 export const useLogin = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [token, setToken] = useState<string | null>(null)
 
   const searchUser = async (body: any) => {

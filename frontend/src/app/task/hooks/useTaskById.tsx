@@ -9,7 +9,7 @@ export function useTaskById(taskId: any, token: any) {
     setIsLoading(true);
     if (taskId) {
       try {
-        const data = await getTaskId(taskId, token);
+        await getTaskId(taskId, token);
       } catch (error) {
         console.error("Error: ", error);
         throw error;

@@ -3,7 +3,7 @@ import { getTaskUserId, getTasks } from "@/services/task.services";
 
 export function useTask(token: any) {
   const [task, setTask] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const taskByUser = async () => {
     setIsLoading(true);

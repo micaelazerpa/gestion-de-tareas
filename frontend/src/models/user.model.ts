@@ -6,11 +6,6 @@ export interface Usuario {
     contraseña: string;
 }
 
-export interface Login {
-    usuario: string;
-    contraseña: string;
-}
-
 export interface User {
     id: string;
     nombre: string;
