@@ -1,28 +1,23 @@
 "use client";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useCreateTask } from "./hooks/useCreateTask";
-import { Tarea, TareaForm } from "@/models/task.model";
+import { Tarea } from "@/models/task.model";
 import { yupResolver } from "@hookform/resolvers/yup"
 import { schema } from "./utils/schema"
 import { useRouter} from 'next/navigation'
+import { useToken } from "../hooks/useToken";
 
 export default function TaskForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<TareaForm>({
-    defaultValues: {
-      nombre: "",
-      descripcion: "",
-    },
-    resolver: yupResolver(schema)
-  });
-  const token = localStorage.getItem('token');
-  const { createTask, isLoading } = useCreateTask();
-
+  const { register, handleSubmit, formState: { errors } } = useForm<Tarea>({resolver: yupResolver(schema)})
+  const token = useToken(state=>state.token)
+  const { createTask, isLoading } = useCreateTask()
   const router = useRouter()
+
   const onSubmit = (data: any) => {
     console.log("se tocó------")
-    console.log("Datos de tarea:------", data);
-    createTask(data, token);
+    console.log("Datos de tarea:------", data)
+    createTask(data, token)
     router.push('/task')
   };
 

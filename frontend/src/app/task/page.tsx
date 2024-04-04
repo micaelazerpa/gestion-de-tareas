@@ -21,8 +21,7 @@ export default function Task() {
         setMenu(newArr);
     }
     
-    const token = useToken(state=>state.token);
-    console.log('token llegado a task', token)
+    const token = useToken(state=>state.token); 
     const router = useRouter()
     const {task} = useTask(token)
 

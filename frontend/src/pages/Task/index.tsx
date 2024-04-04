@@ -1,33 +1,17 @@
 'use client'
-import {
-  ClipboardDocumentListIcon,
-  ChevronRightIcon,
-  PencilIcon,
-  DocumentTextIcon
-} from "@heroicons/react/24/outline";
+import { useTaskProvider } from "@/app/hooks/useTaskProvider";
+import {ChevronRightIcon, PencilIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
 export default function TaskPage(params: any) {
   const { task } = params;
-  
   const router = useRouter();
-
+  const {setTask} = useTaskProvider() 
+ 
+  //console.log("parametros en tarjet", task);
   const handleClick = ()=>{
-    /* const { id } = router.query;
-    const findTaskById = ((id: any) => {
-      return task.find((item: any) => item._id === id);
-    });
-    const tareaAGuardar = findTaskById(id);
-
-    if (tareaAGuardar) {
-      const tareaJSON = JSON.stringify(tareaAGuardar);
-      localStorage.setItem("task", tareaJSON);
-    } else {
-      console.error('No se encontró ninguna tarea');
-    } */
-    localStorage.setItem("task", JSON.stringify(task));
-    console.log("parametros en tarjet", task);
+    setTask(task)
     router.push(`/task/${task._id}`)
   }
   return (
