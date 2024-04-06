@@ -46,21 +46,21 @@ export default function Task() {
     }
     return (
       <div>
-      <div className="rounded-r bg-purple-800 xl:hidden flex justify-between w-full p-6 items-center ">
+      <div className="rounded-r bg-purple-800 flex justify-between xl:hidden w-full p-6 items-center flex-wrap">
           <div className="flex justify-between  items-center space-x-3">
               <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
           </div>
           <div aria-label="toggler" className="flex justify-center items-center">
-              <button aria-label="open" id="open" onClick={()=>setShow(true)} className={`${show ? 'hidden' : ''} focus:outline-none focus:ring-2`}>
+              <button aria-label="open" id="open" onClick={()=>setShow(true)} className={`${show ? 'hidden' : ''}  xl:hidden focus:outline-none focus:ring-2`}>
                   <Bars3Icon className="h-6 w-6 flex-none text-white"  aria-hidden="true"/>
               </button>
-              <button aria-label="close" id="close" onClick={()=>setShow(false)} className={`${show ? '' : 'hidden'} focus:outline-none focus:ring-2`}>
+              <button aria-label="close" id="close" onClick={()=>setShow(false)} className={`${show ? '' : 'hidden'} xl:hidden focus:outline-none focus:ring-2`}>
                   <XMarkIcon className="h-6 w-6 flex-none text-white"  aria-hidden="true"/>
               </button>
           </div>
       </div>
-      <div className="grid grid-cols-4">
-      <div id="Main" className={`${show ? 'translate-x-0' : '-translate-x-full'} xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-screen  w-full sm:w-64 bg-purple-800 flex-col col-span-1`}>
+      <div className="grid grid-cols-4 h-screen">
+        <div id="Main" className={`${show ? 'translate-x-0' : '-translate-x-full hidden'} xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-screen  w-full sm:w-64 bg-purple-800 flex-col col-span-1`}>
           <div className="hidden xl:flex justify-start p-6 items-center space-x-3">
             <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
           </div>
@@ -105,14 +105,15 @@ export default function Task() {
                  <ArrowLeftStartOnRectangleIcon className="h-6 w-6 flex-none text-white mr-1"  aria-hidden="true"/>Cerrar sesión           
               </button>
           </div>
+          
       </div>
-      <div className="col-span-3">
-        <div className="grid grid-cols-3">
+        <div className={`${show ? 'col-span-3' : 'col-span-4' } `}>
+            <div className={`${show ? 'grid grid-cols-3 ' : 'grid grid-cols-4' } overflow-y-scroll overflow-x-hidden h-screen pb-5`}>
             {task.map((task: any, id: any) => (
                 <TaskPage key={id} task={task} />
-            ))}                
-         </div>
-      </div>
+            ))}
+            </div>
+        </div>
       </div>
   </div>
     );

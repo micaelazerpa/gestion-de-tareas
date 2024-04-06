@@ -25,6 +25,7 @@ export default function Login() {
 
   const onSubmit = (data: any) => {
     searchUser(data);
+
   };
 
   useEffect(() => {
@@ -120,9 +121,7 @@ export default function Login() {
           >
             {isLoading ? (
               <>Enviando...</>
-            ) : (
-              <Link href="/login">Iniciar sesión</Link>
-            )}
+            ) : ('Iniciar sesión')}
           </button>
         </form>
 

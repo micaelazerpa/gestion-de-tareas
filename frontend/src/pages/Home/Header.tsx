@@ -44,9 +44,8 @@ export default function Header() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 space-x-4">
                 <Link href="/register" className="text-gray-900 hover:bg-purple-600 hover:text-white rounded-md px-3 py-2 text-sm font-semibold">Registro</Link>
-                <div className="bg-purple-800 text-white rounded-md px-3 py-2 text-sm font-medium">
-                    <Link href="/login">Iniciar sesión</Link>             
-                </div>
+                <Link href="/login" className="bg-purple-800 text-white rounded-md px-3 py-2 text-sm font-medium">Iniciar sesión</Link>             
+                
               </div>
           </div>
         </nav>
