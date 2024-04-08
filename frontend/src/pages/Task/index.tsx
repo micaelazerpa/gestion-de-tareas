@@ -1,6 +1,6 @@
 'use client'
 import { useTaskProvider } from "@/app/hooks/useTaskProvider";
-import {ChevronRightIcon, PencilIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
+import {ChevronRightIcon, PencilIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
@@ -8,8 +8,11 @@ export default function TaskPage(params: any) {
   const { task } = params;
   const router = useRouter();
   const {setTask} = useTaskProvider() 
+  if (!task) {
+    console.log('Esperando...')
+    return <div>Cargando...</div>;
+  }
  
-  //console.log("parametros en tarjet", task);
   const handleClick = ()=>{
     setTask(task)
     router.push(`/task/${task._id}`)
@@ -45,9 +48,6 @@ export default function TaskPage(params: any) {
             Ver
           </Link>
           <button
-            //href={`/[taskId]/${task.id}`}
-            //href="/task/[id]" as={`/task/${task._id}`}
-            //href={{ pathname: '/[taskId]', query: task }}
             onClick={handleClick}
             className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
           >
