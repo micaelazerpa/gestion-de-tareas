@@ -3,41 +3,45 @@ import TaskPage from "@/pages/Task";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import { useTask } from "./hooks/useTask";
-import { PlusIcon, Bars3Icon, XMarkIcon, ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, Bars3Icon, XMarkIcon, ArrowLeftStartOnRectangleIcon,  PencilSquareIcon, ChevronUpIcon} from "@heroicons/react/24/outline";
 import { useRouter} from 'next/navigation'
-import { jwtDecode } from "jwt-decode";
-import { User } from "@/models/user.model";
 import { useAuth} from "../hooks/useAuth";
 import { useToken } from "../hooks/useToken";
-import Proyect from "@/pages/Proyect/Proyect";
 import { useTaskProvider } from "../hooks/useTaskProvider";
+import ProyectPage from "@/pages/Proyect";
+import ProfilePage from "@/pages/Profile";
+
+const State=[
+    {name:'PENDIENTE', nombre:'Pendientes',id:'1'},
+    {name:'EN_PROGRESO',nombre:'En progreso',id:'2'}, 
+    {name:'CANCELADA', nombre:'Canceladas', id:'3'}, 
+    {name:'TERMINADA', nombre:'Terminadas',id:'4'}
+]
 
 export default function Task() {
     const [show, setShow] = useState(true);
-    const [user, setUser] = useState<User | null>(null);
+    const [isMenuOpen, setMenuOpen] = useState(false)
     const {updateAuth}=useAuth()
-    const {setTask} = useTaskProvider()
     const {token } = useToken()
     const router = useRouter()
     const {task} = useTask(token)
 
-    useEffect(()=>{ 
+    const [taskFilter, setTaskFilter] = useState([])
+
+    const toggleMenu = () => {
+        setMenuOpen(!isMenuOpen);
+    }
+    /* useEffect(()=>{ 
         setTask(task)
-    }, [task])
+    }, [task]) */
     
-    useEffect(()=>{ 
-        if (token){
-          try {
-              const decodedToken =  jwtDecode(token) as User
-              setUser(decodedToken)
-              
-          } catch (error) {
-              console.error('Error al decodificar el token:', error)
-              throw error
-          }
-        }
-    }, [])
-    
+    const handleState = (id:string) => {
+      const filterTask=task.filter((item:any)=> item.estado==id)
+      console.log('tareas a filtrar', filterTask)
+      setTaskFilter(filterTask)
+      console.log('tareas a filtrar', taskFilter)
+    }
+  
     const handleChange = ()=>{
         router.push('/task-form')
        // router.push('/[taskId]', `/${id}`)
@@ -67,21 +71,22 @@ export default function Task() {
             <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
           </div>
           <div className="mt-6 flex flex-col justify-between items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5 ">
-              
-              <div className=" flex justify-between items-center w-full">
-                  <div className="flex justify-center items-center  space-x-2">
-                      <div>
-                          <img className="rounded-full" src="https://i.ibb.co/L1LQtBm/Ellipse-1.png" alt="avatar" />
-                      </div>
-                      <div className="flex justify-start flex-col items-start">
-                          <p className="cursor-pointer text-sm leading-5 text-white"> {user?.nombre}</p>
-                          <p className="cursor-pointer text-xs leading-3 text-gray-300">alexis81@gmail.com</p>
-                      </div>
-                  </div>
-              </div>
+              <ProfilePage/>
           </div>
           <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full  ">
-              <Proyect/>
+            <button onClick={toggleMenu} className="focus:outline-none focus:text-indigo-400 text-white flex justify-between items-center w-full py-5 space-x-14 " >
+                <p className="text-sm leading-5 truncate">Proyecto 1</p>
+                <ChevronUpIcon className={`${isMenuOpen ? "" : "rotate-180"} transform duration-100 h-6 w-6 flex-none text-white`}/>
+            </button>
+
+            <div id="menu1" className={`${ isMenuOpen ? "flex" : "hidden" } justify-start  flex-col w-full md:w-auto items-start pb-1 `} >
+                {State.map((item)=>(
+                    <button key={item.id} onClick={()=>handleState(item.name)} className="flex justify-start space-x-6 hover:text-white focus:bg-purple-800 focus:text-white hover:bg-purple-600 text-gray-400 rounded px-3 py-2 w-full md:w-max">
+                    <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400 m" aria-hidden="true"/>
+                    <p className="text-base leading-4  ">{item.nombre}</p>
+                    </button>
+                ))}                
+            </div>
           </div>
           
           <div className="flex flex-col justify-between items-center h-full pb-6 px-6  w-full  space-y-32 border-b border-gray-600">
@@ -98,7 +103,7 @@ export default function Task() {
       </div>
         <div className={`${show ? 'col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4' : ' col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5' }`}>
             <div className={`overflow-y-scroll overflow-x-hidden pb-5 h-screen flex flex-wrap`}>
-            {task.map((task: any, id: any) => (
+            {taskFilter.map((task: any, id: any) => (
                 <TaskPage key={id} task={task}/>
             ))}
             </div>

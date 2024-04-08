@@ -1,6 +1,6 @@
 import Proyect from "./Proyect";
 
-export default function HomePage() {
+export default function ProyectPage() {
   return (
     <>
       <Proyect/>
