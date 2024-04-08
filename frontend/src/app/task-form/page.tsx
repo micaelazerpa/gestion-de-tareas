@@ -9,11 +9,11 @@ import { useRouter} from 'next/navigation'
 import { useToken } from "../hooks/useToken";
 
 export default function TaskForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<Tarea>({resolver: yupResolver(schema)})
+  const { register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema)})
   const token = useToken(state=>state.token)
   const { createTask, isLoading } = useCreateTask()
   const router = useRouter()
-
+  
   const onSubmit = (data: any) => {
     console.log("se tocó------")
     console.log("Datos de tarea:------", data)

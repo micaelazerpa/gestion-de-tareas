@@ -9,6 +9,7 @@ import { useToken } from "@/app/hooks/useToken";
 import { useTaskProvider } from "@/app/hooks/useTaskProvider";
 
 export default function TaskId({ params }: any) {
+  const taskLocal = useTaskProvider(state=>state.task)
     const [task, setTask ] = useState<Tarea | null>(null);
     const { register, handleSubmit, formState: { errors }, reset} = useForm<Tarea>({
         defaultValues:{
@@ -19,7 +20,7 @@ export default function TaskId({ params }: any) {
     });
   const token = useToken(state=>state.token)
   const { updateTask, isLoading } = useUpdateTask()
-  const taskLocal=useTaskProvider(state=>state.task)
+
   const idTask = params;
   const router = useRouter()
   console.log('para editar', taskLocal)
@@ -31,7 +32,7 @@ export default function TaskId({ params }: any) {
     }
   }, []); 
   
-  const onSubmit: SubmitHandler<Tarea> = (data) => {
+  const onSubmit = (data: any) => {
     const {nombre, descripcion, estado}=data
     updateTask(idTask, {nombre, descripcion, estado}, token);
     router.push('/task')

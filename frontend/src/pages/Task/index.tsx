@@ -15,32 +15,23 @@ export default function TaskPage(params: any) {
     router.push(`/task/${task._id}`)
   }
   return (
-    <div className="mt-5 flex max-w-max px-4">
-      <div className="max-w-sm overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-        <div className="p-4">
-          <div
-            key={task._id}
-            className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
-          >
-            <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+    <div className="mt-5 px-4 w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/4 2xl:w-1/6">
+      <div className="overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+        <div key={task._id} className="p-1 flex flex-col ">
+          <div className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50 h-32">
+            {/* <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
               <DocumentTextIcon
                 className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
                 aria-hidden="true"
               />
-            </div>
-            <div>
-              <h2 className="font-semibold text-gray-900">
-                {task.nombre}
-                <span className="absolute inset-0" />
-              </h2>
-              <p className="mt-1 text-gray-600">{task.descripcion}</p>
-              <h4 className="font-semibold text-gray-900">
-                Estado
-                <span className="absolute inset-0" />
-              </h4>
-              <p className="mt-1 text-gray-600">{task.estado}</p>
+            </div> */}
+            
+            <div className="h-full flex flex-col">
+              <h2 className="flex font-semibold text-gray-900 h-auto">{task.nombre}</h2>
+              <p className="flex flex-grow mt-1 text-gray-600 text-clip overflow-hidden">{task.descripcion}</p>
             </div>
           </div>
+          <p className="mt-1 text-gray-600 h-1/6 self-center">{task.estado}</p>
         </div>
         <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
           <Link

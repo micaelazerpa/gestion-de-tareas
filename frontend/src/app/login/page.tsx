@@ -19,24 +19,25 @@ export default function Login() {
     },
   });
   const { updateAuth } = useAuth();
-  const { setToken } = useToken();
   const { searchUser, isLoading, token } = useLogin();
   const router = useRouter();
+  const { setToken } = useToken();
+  const tokenInicial = token;
+  console.log('token inicial',tokenInicial)
 
   const onSubmit = (data: any) => {
     searchUser(data);
-
   };
 
   useEffect(() => {
     if (token) {
       //router.push(`/task?token=${token}`)
-      setToken(token);
+      //setToken(token);
+      console.log('manda token inicial')
+      setToken(tokenInicial)
       updateAuth();
       router.push("/task");
-    } else {
-      console.log("el usuario no existe");
-    }
+    } 
   }, [token]);
 
   return (

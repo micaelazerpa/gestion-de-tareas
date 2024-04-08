@@ -8,7 +8,5 @@ export const schema = yup.object({
   descripcion: yup.string()
     .required('La descripción es requerida')
     .min(3, 'La descripción es muy corto')
-    .max(50, 'La descripción es muy largo'),
-  estado: yup.string()
-    .required('El estado es requerida')
+    .max(50, 'La descripción es muy largo')
 }).required()
