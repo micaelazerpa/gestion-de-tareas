@@ -34,7 +34,7 @@ export default function Register() {
           <a href="/">
             <img
               className="mx-auto h-10 w-auto"
-              src="https://cdn-icons-png.flaticon.com/256/11017/11017025.png"
+              src="/icono.png"
               alt="Logo"
             />
           </a>
@@ -116,7 +116,7 @@ export default function Register() {
                   Contraseña
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-purple-600 hover:text-purple-500">
+                  <a href="#" className="font-semibold text-cyan-600 hover:text-cyan-500">
                   ¿Olvidó su contraseña?
                   </a>
                 </div>
@@ -137,7 +137,7 @@ export default function Register() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-purple-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-cyan-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 disabled={isLoading}
               >
                 {/* {isLoading ? ( <>Enviando...</>): <Link href="/login">Registrarse</Link> } */}
@@ -148,7 +148,7 @@ export default function Register() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             ¿Ya tienes una cuenta?{' '}
-            <Link href="/login" className="font-semibold leading-6 text-purple-600 hover:text-purple-500">
+            <Link href="/login" className="font-semibold leading-6 text-cyan-600 hover:text-cyan-500">
               Iniciar sesión
             </Link>
           </p>

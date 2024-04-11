@@ -56,7 +56,7 @@ export default function Task() {
       <div className="bg-teal-50 ">
       <div className="rounded-r bg-cyan-800 flex justify-between xl:hidden w-full p-6 items-center flex-wrap">
           <div className="flex justify-between  items-center space-x-3">
-              <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
+              <Link href="/task" className="text-2xl leading-6 text-white">Gestión-Tareas</Link>
           </div>
           <div aria-label="toggler" className="flex justify-center items-center">
               <button aria-label="open" id="open" onClick={()=>setShow(true)} className={`${show ? 'hidden' : ''}  xl:hidden focus:outline-none focus:ring-2`}>
@@ -70,7 +70,7 @@ export default function Task() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         <div id="Main" className={`${show ? 'translate-x-0' : '-translate-x-full hidden'} xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-screen w-full bg-cyan-800 flex-col col-span-1`}>
           <div className="hidden xl:flex justify-start p-6 items-center space-x-3">
-            <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
+            <Link href="/task" className="text-2xl leading-6 text-white">Gestión-Tareas</Link>
           </div>
           <div className="mt-6 flex flex-col justify-between items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5 ">
               <ProfilePage/>
@@ -83,7 +83,7 @@ export default function Task() {
 
             <div id="menu1" className={`${ isMenuOpen ? "flex" : "hidden" } justify-start  flex-col w-full md:w-auto items-start pb-1 `} >
                 {State.map((item)=>(
-                    <button key={item.id} onClick={()=>handleState(item.name)} className="flex justify-start space-x-6 hover:text-white focus:bg-cyan-800 focus:text-white hover:bg-cyan-600 text-gray-400 rounded px-3 py-2 w-full md:w-max">
+                    <button key={item.id} onClick={()=>handleState(item.name)} className="flex justify-start space-x-6 hover:text-white focus:text-white hover:bg-cyan-600 text-gray-400 rounded px-3 py-2 w-full md:w-max">
                     <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400 m" aria-hidden="true"/>
                     <p className="text-base leading-4  ">{item.nombre}</p>
                     </button>
@@ -92,7 +92,7 @@ export default function Task() {
           </div>
           
           <div className="flex flex-col justify-between items-center h-full pb-6 px-6  w-full  space-y-32 border-b border-gray-600">
-              <button onClick={handleChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase ">
+              <button onClick={handleChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase">
                  <PlusIcon  className="h-6 w-6 flex-none text-white mr-1"  aria-hidden="true"/>AGREGRAR TAREA                
               </button>             
           </div>
