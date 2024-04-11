@@ -7,9 +7,9 @@ import { PlusIcon, Bars3Icon, XMarkIcon, ArrowLeftStartOnRectangleIcon,  PencilS
 import { useRouter} from 'next/navigation'
 import { useAuth} from "../hooks/useAuth";
 import { useToken } from "../hooks/useToken";
-import { useTaskProvider } from "../hooks/useTaskProvider";
 import ProyectPage from "@/pages/Proyect";
 import ProfilePage from "@/pages/Profile";
+import { useTaskState } from "../hooks/useTaskState";
 
 const State=[
     {name:'PENDIENTE', nombre:'Pendientes',id:'1'},
@@ -27,34 +27,36 @@ export default function Task() {
     const {task} = useTask(token)
 
     const [taskFilter, setTaskFilter] = useState([])
-
+    const {taskState, updateState} = useTaskState()
+    //const prevFilter = useRef(state)
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
     }
-    /* useEffect(()=>{ 
-        setTask(task)
-    }, [task]) */
     
-    const handleState = (id:string) => {
-      const filterTask=task.filter((item:any)=> item.estado==id)
-      console.log('tareas a filtrar', filterTask)
-      setTaskFilter(filterTask)
-      console.log('tareas a filtrar', taskFilter)
+    useEffect(()=>{ 
+        console.log('estado recuperado', taskState)
+        const filterTask = task.filter((item: any) => item.estado === taskState)
+        console.log('tareas a filtrar', filterTask)
+        setTaskFilter(filterTask)
+    }, [taskState, task]) 
+    
+    const handleState = (name:string) => {
+        updateState(name)
     }
   
     const handleChange = ()=>{
         router.push('/task-form')
-       // router.push('/[taskId]', `/${id}`)
     }
     const handleLogin = ()=>{
         updateAuth()
+        updateState('')
         router.push('/')
     }
     return (
-      <div className=" ">
-      <div className="rounded-r bg-purple-800 flex justify-between xl:hidden w-full p-6 items-center flex-wrap">
+      <div className="bg-teal-50 ">
+      <div className="rounded-r bg-cyan-800 flex justify-between xl:hidden w-full p-6 items-center flex-wrap">
           <div className="flex justify-between  items-center space-x-3">
-              <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
+              <Link href="/task" className="text-2xl leading-6 text-white">Gestión-Tareas</Link>
           </div>
           <div aria-label="toggler" className="flex justify-center items-center">
               <button aria-label="open" id="open" onClick={()=>setShow(true)} className={`${show ? 'hidden' : ''}  xl:hidden focus:outline-none focus:ring-2`}>
@@ -66,9 +68,9 @@ export default function Task() {
           </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        <div id="Main" className={`${show ? 'translate-x-0' : '-translate-x-full hidden'} xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-screen w-full bg-purple-800 flex-col col-span-1`}>
+        <div id="Main" className={`${show ? 'translate-x-0' : '-translate-x-full hidden'} xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-screen w-full bg-cyan-800 flex-col col-span-1`}>
           <div className="hidden xl:flex justify-start p-6 items-center space-x-3">
-            <Link href="/task" className="text-2xl leading-6 text-white">Tareas Púrpura</Link>
+            <Link href="/task" className="text-2xl leading-6 text-white">Gestión-Tareas</Link>
           </div>
           <div className="mt-6 flex flex-col justify-between items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5 ">
               <ProfilePage/>
@@ -81,7 +83,7 @@ export default function Task() {
 
             <div id="menu1" className={`${ isMenuOpen ? "flex" : "hidden" } justify-start  flex-col w-full md:w-auto items-start pb-1 `} >
                 {State.map((item)=>(
-                    <button key={item.id} onClick={()=>handleState(item.name)} className="flex justify-start space-x-6 hover:text-white focus:bg-purple-800 focus:text-white hover:bg-purple-600 text-gray-400 rounded px-3 py-2 w-full md:w-max">
+                    <button key={item.id} onClick={()=>handleState(item.name)} className="flex justify-start space-x-6 hover:text-white focus:text-white hover:bg-cyan-600 text-gray-400 rounded px-3 py-2 w-full md:w-max">
                     <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400 m" aria-hidden="true"/>
                     <p className="text-base leading-4  ">{item.nombre}</p>
                     </button>
@@ -90,7 +92,7 @@ export default function Task() {
           </div>
           
           <div className="flex flex-col justify-between items-center h-full pb-6 px-6  w-full  space-y-32 border-b border-gray-600">
-              <button onClick={handleChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase ">
+              <button onClick={handleChange} className="focus:outline-none focus:text-indigo-400  text-white flex items-center w-full py-5 space-x-14 text-sm leading-5  uppercase">
                  <PlusIcon  className="h-6 w-6 flex-none text-white mr-1"  aria-hidden="true"/>AGREGRAR TAREA                
               </button>             
           </div>
@@ -102,11 +104,12 @@ export default function Task() {
           
       </div>
         <div className={`${show ? 'col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4' : ' col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5' }`}>
+           {taskState==''?<ProyectPage/>:
             <div className={`overflow-y-scroll overflow-x-hidden pb-5 h-screen flex flex-wrap`}>
-            {taskFilter.map((task: any, id: any) => (
+            {Array.isArray(taskFilter) && taskFilter.map((task: any, id: any) => (
                 <TaskPage key={id} task={task}/>
             ))}
-            </div>
+            </div>}
         </div>
       </div>
   </div>

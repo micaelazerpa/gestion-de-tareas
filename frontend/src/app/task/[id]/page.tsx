@@ -7,9 +7,10 @@ import { useUpdateTask } from "../hooks/useUpdateTask";
 import { useEffect, useState } from "react";
 import { useToken } from "@/app/hooks/useToken";
 import { useTaskProvider } from "@/app/hooks/useTaskProvider";
+import { useTaskState } from "@/app/hooks/useTaskState";
 
 export default function TaskId({ params }: any) {
-  const taskLocal = useTaskProvider(state=>state.task)
+  const taskLocal = useTaskProvider(state=>state.tasks)
     const [task, setTask ] = useState<Tarea | null>(null);
     const { register, handleSubmit, formState: { errors }, reset} = useForm<Tarea>({
         defaultValues:{
@@ -20,10 +21,11 @@ export default function TaskId({ params }: any) {
     });
   const token = useToken(state=>state.token)
   const { updateTask, isLoading } = useUpdateTask()
+  const {updateState} = useTaskState()
 
   const idTask = params;
   const router = useRouter()
-  console.log('para editar', taskLocal)
+
   /* const data = router.query;  */
   useEffect(() => {
     if (taskLocal){
@@ -34,12 +36,19 @@ export default function TaskId({ params }: any) {
   
   const onSubmit = (data: any) => {
     const {nombre, descripcion, estado}=data
-    updateTask(idTask, {nombre, descripcion, estado}, token);
+    updateState(task?.estado)
+    updateTask(idTask, {nombre, descripcion, estado}, token)
     router.push('/task')
-  };
+  }
+
+  const cancel =()=>{
+    console.log('estado devuelto', task?.estado)
+    updateState(task?.estado)
+    router.push('/task')
+  }
 
   return (
-    <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8 bg-[url('/fondo.png')] bg-cover bg-center">
       <div className="flex justify-center flex-1 flex-col max-w-lg overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -130,8 +139,8 @@ export default function TaskId({ params }: any) {
             </div>
 
             <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-              <Link
-                href="/task"
+              <button
+                onClick={cancel}
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
               >
                 {/* <PencilIcon
@@ -139,7 +148,7 @@ export default function TaskId({ params }: any) {
                     aria-hidden="true"
                 /> */}
                 Cancelar
-              </Link>
+              </button>
               <button
                 type="submit"
                 className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"

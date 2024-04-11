@@ -7,22 +7,24 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { schema } from "./utils/schema"
 import { useRouter} from 'next/navigation'
 import { useToken } from "../hooks/useToken";
+import { useTaskState } from "../hooks/useTaskState";
 
 export default function TaskForm() {
   const { register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema)})
   const token = useToken(state=>state.token)
   const { createTask, isLoading } = useCreateTask()
   const router = useRouter()
+  const {updateState} = useTaskState()
   
   const onSubmit = (data: any) => {
-    console.log("se tocó------")
     console.log("Datos de tarea:------", data)
     createTask(data, token)
+    updateState('PENDIENTE')
     router.push('/task')
   };
 
   return (
-    <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8 bg-[url('/fondo.png')] bg-cover bg-center">
       <div className="flex justify-center flex-col flex-1 max-w-md overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

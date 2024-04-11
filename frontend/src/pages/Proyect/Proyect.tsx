@@ -1,49 +1,58 @@
-import { useState } from "react";
-import { PencilSquareIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useTaskProvider } from "@/app/hooks/useTaskProvider";
 
 export default function Proyect() {
-  const [isMenuOpen, setMenuOpen] = useState(false)
-  const {task, setTask} = useTaskProvider()
-
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  }
-  const handleState = (id:string) => {
-    const filterTask=task.filter((item:any)=> item.estado==id)
-    console.log('tareas a filtrar', task)
-    console.log('tareas a filtrar', filterTask)
-  }
-
   return (
-    <>
-      <button
-        onClick={toggleMenu}
-        className="focus:outline-none focus:text-indigo-400 text-white flex justify-between items-center w-full py-5 space-x-14  "
-      >
-        <p className="text-sm leading-5 truncate">Proyecto 1</p>
-        <ChevronUpIcon className={`${isMenuOpen ? "" : "rotate-180"} transform duration-100 h-6 w-6 flex-none text-white`}/>
-      </button>
-      <div id="menu1" className={`${ isMenuOpen ? "flex" : "hidden" } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
-      >
-        <button onClick={()=>handleState("PENDIENTE")} className="flex justify-start space-x-6 hover:text-white focus:bg-purple-800 focus:text-white hover:bg-purple-600 text-gray-400 rounded px-3 py-2 w-full md:w-max">
-          <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400 m" aria-hidden="true"/>
-          <p className="text-base leading-4  ">Pendientes</p>
-        </button>
-        <button className="flex justify-start space-x-6 hover:text-white focus:bg-purple-800 focus:text-white hover:bg-purple-600 text-gray-400 rounded px-3 py-2  w-full md:w-max">
-          <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400" aria-hidden="true"/>
-          <p className="text-base leading-4  ">En progreso</p>
-        </button>
-        <button className="flex justify-start space-x-6 hover:text-white focus:bg-purple-800 focus:text-white hover:bg-purple-600 text-gray-400 rounded px-3 py-2  w-full md:w-max">
-          <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400 m" aria-hidden="true"/>
-          <p className="text-base leading-4  ">Canceladas</p>
-        </button>
-        <button className="flex justify-start space-x-6 hover:text-white focus:bg-purple-800 focus:text-white hover:bg-purple-600 text-gray-400 rounded px-3 py-2  w-full md:w-max">
-          <PencilSquareIcon className="h-6 w-6 flex-none text-gray-400" aria-hidden="true"/>
-          <p className="text-base leading-4  ">Terminadas</p>
-        </button>
+    <div className="text-center mx-10 my-10 h-screen">
+      <div className="xl:mx-auto xl:container 2xl:px-0 px-6">
+        <div className="lg:flex items-center justify-between">
+          <div className=" lg:w-1/2 w-full">
+            <h1
+              role="heading"
+              className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-gray-900"
+            >
+              ¡Bienvenida/o a Gestión de Tareas!
+            </h1>
+            <p
+              role="contentinfo"
+              className="text-base leading-5 mt-5 text-gray-700"
+            >
+              Tus tareas se organizan en proyectos, en cada proyecto podrás
+              filtrar tus tareas por los estados disponibles. Pendientes, en
+              progreso, canceladas y terminadas.
+            </p>
+          </div>
+          <div
+            className="xl:w-1/2 lg:w-7/12 relative w-full lg:mt-0 mt-12 md:px-8"
+            role="list"
+          >
+            <div
+              role="listitem"
+              className="bg-white cursor-pointer shadow rounded-lg mt-3 flex relative z-30"
+            >
+              <div className="w-2.5  h-auto bg-cyan-600 rounded-tl-md rounded-bl-md" />
+              <div className="w-full p-8">
+                <div className="md:flex items-center justify-between">
+                  <h2 className="text-2xl font-semibold leading-6 text-gray-900">
+                    Proyecto 1
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div
+              role="listitem"
+              className="bg-white cursor-pointer shadow rounded-lg mt-3 flex relative z-30"
+            >
+              <div className="w-2.5  h-auto bg-cyan-600 rounded-tl-md rounded-bl-md" />
+              <div className="w-full p-8">
+                <div className="md:flex items-center justify-between">
+                  <h2 className="text-2xl font-semibold leading-6 text-gray-900">
+                    Otro
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
