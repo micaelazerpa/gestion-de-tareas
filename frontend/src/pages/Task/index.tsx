@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation';
 export default function TaskPage(params: any) {
   const { task } = params;
   const router = useRouter();
-  const {setTask} = useTaskProvider() 
+  const {setTasks} = useTaskProvider() 
  
   //console.log("parametros en tarjet", task);
   const handleClick = ()=>{
-    setTask(task)
+    setTasks(task)
     router.push(`/task/${task._id}`)
   }
   return (

@@ -28,7 +28,8 @@ export default function Register() {
   }
 
   return (
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8 bg-[url('/fondo.png')] bg-cover bg-center">
+      <div className="flex justify-center flex-col flex-1 max-w-md overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href="/">
             <img
@@ -153,5 +154,6 @@ export default function Register() {
           </p>
         </div>
       </div>
-    );
+    </div>
+  );
 }

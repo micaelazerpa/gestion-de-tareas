@@ -41,12 +41,13 @@ export default function Login() {
   }, [token]);
 
   return (
-    <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8 bg-[url('/fondo.png')] bg-cover bg-center">
+      <div className="flex justify-center flex-col flex-1 max-w-md overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <a href="/">
           <img
             className="mx-auto h-10 w-auto"
-            src="https://cdn-icons-png.flaticon.com/256/11017/11017025.png"
+            src="/icono.png"
             alt="Logo"
           />
         </a>
@@ -95,7 +96,7 @@ export default function Login() {
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-semibold text-purple-600 hover:text-purple-500"
+                  className="font-semibold text-cyan-600 hover:text-cyan-500"
                 >
                   ¿Olvidó su contraseña?
                 </a>
@@ -117,7 +118,7 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="flex w-full justify-center rounded-md bg-purple-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex w-full justify-center rounded-md bg-cyan-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -130,11 +131,12 @@ export default function Login() {
           ¿No tienes una cuenta?{" "}
           <Link
             href="/register"
-            className="font-semibold leading-6 text-purple-600 hover:text-purple-500"
+            className="font-semibold leading-6 text-cyan-600 hover:text-cyan-500"
           >
             Registrarse
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );
