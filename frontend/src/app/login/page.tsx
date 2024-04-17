@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useToken } from "../hooks/useToken";
+import {XMarkIcon} from "@heroicons/react/24/outline";
 
 export default function Login() {
   const {
@@ -123,6 +124,11 @@ export default function Login() {
             </Link>
           </p>
         </div>
+        {token ===null ? 
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5 mx-4" role="alert">
+          <strong className="font-bold">Usuario no existe! </strong>
+          <span className="block sm:inline">Verifique que los datos ingresados sean correctos.</span>
+        </div>: ''}
       </div>
     </div>
   );
