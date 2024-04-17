@@ -25,27 +25,26 @@ export default function TaskForm() {
 
   return (
     <div className="flex min-h-screen justify-center px-6 py-12 lg:px-8 bg-[url('/fondo.png')] bg-cover bg-center">
-      <div className="flex justify-center flex-col flex-1 max-w-md overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+      <div className="flex h-full justify-center flex-col flex-1 max-w-md overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Tarea
           </h2>
         </div>
-        <div className="p-4 mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+       
           <form
-            className="space-y-6"
             action="#"
             method="POST"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div>
-              <label
-                htmlFor="nombre"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Nombre
-              </label>
-              <div className="mt-2">
+            <div className="p-4 mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+              <div className="mt-2 space-y-3">
+                <label
+                  htmlFor="nombre"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Nombre
+                </label>
                 <input
                   id="nombre"
                   type="text"
@@ -58,18 +57,13 @@ export default function TaskForm() {
                   {errors.nombre?.message}
                 </p>
               </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
+              <div className="mt-2 space-y-3">
                 <label
                   htmlFor="descripcion"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Descripción
                 </label>
-              </div>
-              <div className="mt-2">
                 <textarea
                   id="descripcion"
                   rows={3}
@@ -105,7 +99,6 @@ export default function TaskForm() {
               </button>
             </div>
           </form>
-        </div>
       </div>
     </div>
   );
