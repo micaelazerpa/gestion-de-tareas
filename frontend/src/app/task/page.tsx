@@ -1,6 +1,5 @@
 'use client'
 import TaskPage from "@/pages/Task";
-import Link from "next/link";
 import {useEffect, useState} from "react";
 import { useTask } from "./hooks/useTask";
 import { PlusIcon, Bars3Icon, XMarkIcon, ArrowLeftStartOnRectangleIcon,  PencilSquareIcon, ChevronUpIcon} from "@heroicons/react/24/outline";
@@ -56,7 +55,7 @@ export default function Task() {
       <div className="bg-teal-50 ">
       <div className="rounded-r bg-cyan-800 flex justify-between xl:hidden w-full p-6 items-center flex-wrap">
           <div className="flex justify-between  items-center space-x-3">
-              <Link href="/task" className="text-2xl leading-6 text-white">Gestión-Tareas</Link>
+              <button onClick={()=>(updateState(''))} className="text-2xl leading-6 text-white">Gestión-Tareas</button>
           </div>
           <div aria-label="toggler" className="flex justify-center items-center">
               <button aria-label="open" id="open" onClick={()=>setShow(true)} className={`${show ? 'hidden' : ''}  xl:hidden focus:outline-none focus:ring-2`}>
@@ -70,7 +69,7 @@ export default function Task() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         <div id="Main" className={`${show ? 'translate-x-0' : '-translate-x-full hidden'} xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-screen w-full bg-cyan-800 flex-col col-span-1`}>
           <div className="hidden xl:flex justify-start p-6 items-center space-x-3">
-            <Link href="/task" className="text-2xl leading-6 text-white">Gestión-Tareas</Link>
+            <button onClick={()=>(updateState(''))} className="text-2xl leading-6 text-white">Gestión-Tareas</button>
           </div>
           <div className="mt-6 flex flex-col justify-between items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5 ">
               <ProfilePage/>
